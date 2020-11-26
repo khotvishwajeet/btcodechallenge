@@ -39,57 +39,57 @@ public class LightBulbControllerIntegrationTest {
 	}
 
 	@Test
-	public void testGetAllEmployees() {
+	public void testGetAllLightBulbs() {
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-		ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/employees",
+		ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/lightBulbs",
 				HttpMethod.GET, entity, String.class);
 		
 		assertNotNull(response.getBody());
 	}
 
 	@Test
-	public void testGetEmployeeById() {
-		LightBulb lightBulb = restTemplate.getForObject(getRootUrl() + "/employees/1", LightBulb.class);
+	public void testGetLightBulbById() {
+		LightBulb lightBulb = restTemplate.getForObject(getRootUrl() + "/lightBulbs/1", LightBulb.class);
 		System.out.println(lightBulb.getColor());
 		assertNotNull(lightBulb);
 	}
 
 	@Test
-	public void testCreateEmployee() {
+	public void testCreateLightBulb() {
 		LightBulb lightBulb = new LightBulb();
 		lightBulb.setState("Light");
 		lightBulb.setColor("BLUE");
 
-		ResponseEntity<LightBulb> postResponse = restTemplate.postForEntity(getRootUrl() + "/employees", lightBulb, LightBulb.class);
+		ResponseEntity<LightBulb> postResponse = restTemplate.postForEntity(getRootUrl() + "/lightBulbs", lightBulb, LightBulb.class);
 		assertNotNull(postResponse);
 		assertNotNull(postResponse.getBody());
 	}
 
 	@Test
-	public void testUpdateEmployee() {
+	public void testUpdateLightBulb() {
 		int id = 1;
-		LightBulb lightBulb = restTemplate.getForObject(getRootUrl() + "/employees/" + id, LightBulb.class);
+		LightBulb lightBulb = restTemplate.getForObject(getRootUrl() + "/lightBulbs/" + id, LightBulb.class);
 		lightBulb.setState("Dark");
 		lightBulb.setColor("BLUE");
 
-		restTemplate.put(getRootUrl() + "/employees/" + id, lightBulb);
+		restTemplate.put(getRootUrl() + "/lightBulbs/" + id, lightBulb);
 
-		LightBulb updatedLightBulb = restTemplate.getForObject(getRootUrl() + "/employees/" + id, LightBulb.class);
+		LightBulb updatedLightBulb = restTemplate.getForObject(getRootUrl() + "/lightBulbs/" + id, LightBulb.class);
 		assertNotNull(updatedLightBulb);
 	}
 
 	@Test
-	public void testDeleteEmployee() {
+	public void testDeleteLightBulb() {
 		int id = 2;
-		LightBulb lightBulb = restTemplate.getForObject(getRootUrl() + "/employees/" + id, LightBulb.class);
+		LightBulb lightBulb = restTemplate.getForObject(getRootUrl() + "/lightBulbs/" + id, LightBulb.class);
 		assertNotNull(lightBulb);
 
-		restTemplate.delete(getRootUrl() + "/employees/" + id);
+		restTemplate.delete(getRootUrl() + "/lightBulbs/" + id);
 
 		try {
-			lightBulb = restTemplate.getForObject(getRootUrl() + "/employees/" + id, LightBulb.class);
+			lightBulb = restTemplate.getForObject(getRootUrl() + "/lightBulbs/" + id, LightBulb.class);
 		} catch (final HttpClientErrorException e) {
 			assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
 		}
