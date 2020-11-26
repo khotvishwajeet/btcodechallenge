@@ -12,3 +12,9 @@ use port 8080
   Add run -p to map ports.
 
   sudo docker run -d -p 8080:8080 -t spring-boot:2.0
+  
+4) Once Image get created name (spring-boot:2.00) use below command to deploy image in the kubernetes
+kubectl create -f deployment.yml
+we are assuming before above command Kubernets services are running.
+5) You can then list pods by running the command 
+   kubectl get pods
